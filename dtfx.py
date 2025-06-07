@@ -35,9 +35,12 @@ except ImportError:
     blocks = gr = uhd = None
 import cv2
 import pymavlink as mavlink
+# Correct way to handle optional imports:
+try:
+    import pymavlink as mavlink
 except ImportError:
-    logging.warning("MAVLink not available; drone protocol features disabled")
     mavlink = None
+    logging.warning("MAVLink not available; drone protocol features disabled")
 from pyftdi.spi import SpiController
 from rfcat import RfCat
 import geopy.distance
