@@ -34,7 +34,7 @@ except ImportError:
     logging.warning("GNU Radio not available; SDR features disabled")
     blocks = gr = uhd = None
 import cv2
- import pymavlink as mavlink
+import pymavlink as mavlink
 except ImportError:
     logging.warning("MAVLink not available; drone protocol features disabled")
     mavlink = None
