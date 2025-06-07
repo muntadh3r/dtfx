@@ -417,7 +417,23 @@ class SignalProcessor:
         except Exception as e:
             logging.error(f"Waterfall generation error: {e}")
             return None
-
+class MavlinkExploiter:
+    def __init__(self):
+        self.connection = None
+        self.common_vulns = {
+            'CVE-2022-35417': 'MAVLink command injection',
+            'CVE-2021-32097': 'Parameter protocol overflow',
+            'CVE-2020-13927': 'Mission protocol spoofing'
+        }
+    
+    # Method should be indented 4 spaces inside class
+    def connect(self, ip, port=14550):  # <- This line
+        try:
+            self.connection = mavutil.mavlink_connection(f'udp:{ip}:{port}')
+            return True
+        except Exception as e:
+            logging.error(f"MAVLink connection failed: {e}")
+            return False
 class MavlinkExploiter:
     def __init__(self):
         self.connection = None
@@ -427,14 +443,7 @@ class MavlinkExploiter:
             'CVE-2020-13927': 'Mission protocol spoofing'
         }
         
-   def connect(self, ip, port=14550):
-    try:
-        from pymavlink import mavutil
-        self.connection = mavutil.mavlink_connection(f'udp:{ip}:{port}')
-        return True
-    except Exception as e:
-        logging.error(f"MAVLink connection failed: {e}")
-        return False
+ 
             
     def exploit(self, command, payload=None):
         if not self.connection:
