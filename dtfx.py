@@ -427,7 +427,7 @@ class MavlinkExploiter:
             'CVE-2020-13927': 'Mission protocol spoofing'
         }
         
-            def connect(self, ip, port=14550):
+   def connect(self, ip, port=14550):
     try:
         from pymavlink import mavutil
         self.connection = mavutil.mavlink_connection(f'udp:{ip}:{port}')
